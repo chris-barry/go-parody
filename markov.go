@@ -4,9 +4,10 @@ import (
 	"os"
 	"fmt"
 	"time"
+	"strings"
 	"math/rand"
 	"io/ioutil"
-	"strings"
+	"encoding/json"
 )
 
 // Hold the list of words that have been seen.
@@ -86,6 +87,43 @@ func PrintPhrase(w int) {
 	}
 }
 
+// Outputs the word list to a json file.
+func DumpWordList(w map[string]*Word, fileName string) {
+	// Open the file.
+	f, err := os.OpenFile(fileName, os.O_RDWR | os.O_CREATE | os.O_APPEND, 0666)
+	if err != nil {
+		panic(err)
+	}
+	defer f.Close()
+
+	// Make the json.
+	b, err := json.Marshal(w)
+	if err != nil {
+		panic(err)
+	}
+
+	// Write the json.
+	_, err = f.Write(b)
+	if err != nil {
+		panic(err)
+	}
+}
+
+// Loads an outputted json file.
+func LoadWordList(fileName string {
+	// Open file.
+	b, err := ioutil.ReadFile(fileName)
+	if err != nil {
+		panic(err)
+	}
+
+	// Load json.
+	err = json.Unmarshal(b, &wordList)
+	if err != nil {
+		panic(err)
+	}
+}
+
 // Starts the simulation.
 func main() {
 	// Read in our seed.
@@ -97,6 +135,9 @@ func main() {
 	rand.Seed(time.Now().UTC().UnixNano())
 	// Start the simulation.
 	ParsePhrase(phrase)
+/*
+	DumpWordList(wordList, "output.json")
+	LoadWordList("output.json")
+*/
 	PrintPhrase(100)
-	fmt.Println()
 }
