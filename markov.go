@@ -29,11 +29,11 @@ func NewWord() *Word {
 func ParsePhrase(s string) {
 	// I assume all words are separated by spaces.
 	// Normalize the strings somewhat.
-
-	// XXX/TODO: There is probably a better way to normalize.
-	s = strings.Replace(s, "\n", " ", -1)
-	s = strings.Replace(s, "\t", " ", -1)
-	s = strings.Replace(s, "  ", " ", -1)
+	replacer := strings.NewReplacer(
+		"\n", " ",
+		"\t", " ",
+		"  ", " ",)
+	s = replacer.Replace(s)
 	var array = strings.Split(s, " ")
 
 	// Insets the words we found into wordList.
