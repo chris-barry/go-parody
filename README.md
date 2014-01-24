@@ -10,6 +10,15 @@ This is my first try at Go.
 So it may not be as Go-like as it should be in some places.
 Feedback is welcomed!
 
+## Customizing Output
+
+You can adjust some settings via command line flags.
+
+```
+-words=100: Number of words per paragraph (roughly).
+-paragraphs=2: Number of paragraphs.
+```
+
 ## Example Output
 
 Input file was taken from [Project Gutenberg][1].

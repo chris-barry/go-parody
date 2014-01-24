@@ -4,6 +4,7 @@ import (
 	"os"
 	"fmt"
 	"time"
+	"flag"
 	"strings"
 	"math/rand"
 	"io/ioutil"
@@ -85,6 +86,7 @@ func PrintPhrase(w int) {
 		}
 		fmt.Print(s + " ")
 	}
+	fmt.Println()
 }
 
 // Outputs the word list to a json file.
@@ -132,6 +134,12 @@ func main() {
 		panic(err)
 	}
 	phrase := string(p)
+
+	var words      = flag.Int("words", 100, "Number of words per paragraph.")
+	var paragraphs = flag.Int("paragraphs", 2, "Number of paragraphs.")
+
+	flag.Parse()
+
 	rand.Seed(time.Now().UTC().UnixNano())
 	// Start the simulation.
 	ParsePhrase(phrase)
@@ -139,5 +147,9 @@ func main() {
 	DumpWordList(wordList, "output.json")
 	LoadWordList("output.json")
 */
-	PrintPhrase(100)
+	for *paragraphs > 0 {
+		PrintPhrase(*words)
+		fmt.Println()
+		*paragraphs--
+	}
 }
