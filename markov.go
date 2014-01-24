@@ -110,7 +110,7 @@ func DumpWordList(w map[string]*Word, fileName string) {
 }
 
 // Loads an outputted json file.
-func LoadWordList(fileName string {
+func LoadWordList(fileName string) {
 	// Open file.
 	b, err := ioutil.ReadFile(fileName)
 	if err != nil {
